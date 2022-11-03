@@ -1,4 +1,4 @@
-# Pistol Whip OWO support
+# Until You Fall OWO support
 OWO support for Until You Fall
 
 ## Installation
@@ -15,4 +15,5 @@ OWO support for Until You Fall
 - Blocking
 - Healing
 - Activating super ability
+- Dashing
 - ...
