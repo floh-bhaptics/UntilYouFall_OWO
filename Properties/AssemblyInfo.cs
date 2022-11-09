@@ -15,7 +15,7 @@ using MelonLoader;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: MelonInfo(typeof(UntilYouFall_OWO.UntilYouFall_OWO), "UntilYouFall_OWO", "1.0.1", "Florian Fahrenberger")]
+[assembly: MelonInfo(typeof(UntilYouFall_OWO.UntilYouFall_OWO), "UntilYouFall_OWO", "1.0.2", "Florian Fahrenberger")]
 [assembly: MelonGame("Schell Games", "UntilYouFall")]
 
 // Durch Festlegen von ComVisible auf FALSE werden die Typen in dieser Assembly
@@ -36,5 +36,5 @@ using MelonLoader;
 // Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
 // indem Sie "*" wie unten gezeigt eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.1")]
-[assembly: AssemblyFileVersion("1.0.1")]
+[assembly: AssemblyVersion("1.0.2")]
+[assembly: AssemblyFileVersion("1.0.2")]
