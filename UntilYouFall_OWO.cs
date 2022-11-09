@@ -120,6 +120,7 @@ namespace UntilYouFall_OWO
                 if (__instance.health.IsOnDeathsDoor)
                 {
                     tactsuitVr.PlayBackFeedback("ThreeHeartBeats");
+                    return;
                 }
                 if (BulwarkActive)
                 {
