@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using MelonLoader;
 using OWOHaptic;
-//using MyOWOSensations;
+using Il2Cpp;
 
 namespace MyOWOVest
 {

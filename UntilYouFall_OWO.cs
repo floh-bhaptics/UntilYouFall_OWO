@@ -3,22 +3,25 @@ using MelonLoader;
 using HarmonyLib;
 using System.Threading;
 
-using SG.Claymore.Movement.Dash;
-using SG.Claymore.Combat.Blocking;
-using SG.Claymore.Interaction;
-using SG.Claymore.Armaments;
-using SG.Claymore.Armaments.Abilities;
-using SG.Claymore.Player;
-using SG.Claymore.Combat.EnemyAttacks;
-using SG.Claymore.Entities;
-using SG.Claymore.Armory;
+using Il2CppSG.Claymore.Movement.Dash;
+using Il2CppSG.Claymore.Combat.Blocking;
+using Il2CppSG.Claymore.Interaction;
+using Il2CppSG.Claymore.Armaments;
+using Il2CppSG.Claymore.Armaments.Abilities;
+using Il2CppSG.Claymore.Player;
+using Il2CppSG.Claymore.Combat.EnemyAttacks;
+using Il2CppSG.Claymore.Entities;
+using Il2CppSG.Claymore.Armory;
 using MyOWOVest;
+
+[assembly: MelonInfo(typeof(UntilYouFall_OWO.UntilYouFall_OWO), "UntilYouFall_OWO", "1.0.2", "Florian Fahrenberger")]
+[assembly: MelonGame("Schell Games", "UntilYouFall")]
 
 namespace UntilYouFall_OWO
 {
     public class UntilYouFall_OWO : MelonMod
     {
-        public static TactsuitVR tactsuitVr;
+        public static TactsuitVR tactsuitVr = null!;
         private static String ActiveHand = "PlayerHandRight";
         private static bool BulwarkActive = false;
 
@@ -70,7 +73,7 @@ namespace UntilYouFall_OWO
         }
 
 
-        [HarmonyPatch(typeof(MeleeWeapon), "GetForceRating", new Type[] { typeof(SG.Claymore.HitSystem.HitData.HitQualityType) })]
+        [HarmonyPatch(typeof(MeleeWeapon), "GetForceRating", new Type[] { typeof(Il2CppSG.Claymore.HitSystem.HitData.HitQualityType) })]
         public class HitForce
         {
             [HarmonyPostfix]
