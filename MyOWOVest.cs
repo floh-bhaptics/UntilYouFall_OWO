@@ -4,8 +4,9 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using MelonLoader;
-using OWOHaptic;
+using OWOGame;
 using Il2Cpp;
+using System.Net;
 
 namespace MyOWOVest
 {
@@ -20,7 +21,7 @@ namespace MyOWOVest
         public bool suitDisabled = true;
         public bool systemInitialized = false;
         // Event to start and stop the heartbeat thread
-        public Dictionary<String, ISensation> FeedbackMap = new Dictionary<String, ISensation>();
+        public Dictionary<String, Sensation> FeedbackMap = new Dictionary<String, Sensation>();
 
 
         /*
@@ -48,15 +49,56 @@ namespace MyOWOVest
         {
             LOG("Initializing suit");
 
-            await OWO.AutoConnectAsync();
+            // New auth.
+            var gameAuth = GameAuth.Create(AllBakedSensations()).WithId("70269499");
 
-            if (OWO.IsConnected)
+            OWO.Configure(gameAuth);
+            string myIP = getIpFromFile("OWO_Manual_IP.txt");
+            if (myIP == "") await OWO.AutoConnect();
+            else
+            {
+                LOG("Found manual IP address: " + myIP);
+                await OWO.Connect(myIP);
+            }
+
+            if (OWO.ConnectionState == ConnectionState.Connected)
             {
                 suitDisabled = false;
                 LOG("OWO suit connected.");
             }
             if (suitDisabled) LOG("Owo is not enabled?!?!");
         }
+
+        public string getIpFromFile(string filename)
+        {
+            string ip = "";
+            string filePath = Directory.GetCurrentDirectory() + "\\Mods\\" + filename;
+            if (File.Exists(filePath))
+            {
+                string fileBuffer = File.ReadAllText(filePath);
+                IPAddress address;
+                if (IPAddress.TryParse(fileBuffer, out address)) ip = fileBuffer;
+            }
+            return ip;
+        }
+
+        private BakedSensation[] AllBakedSensations()
+        {
+            var result = new List<BakedSensation>();
+
+            foreach (var sensation in FeedbackMap.Values)
+            {
+                if (sensation is not BakedSensation baked)
+                {
+                    LOG("Sensation not baked? " + sensation);
+                    continue;
+                }
+                LOG("Registered baked sensation: " + baked.name);
+                result.Add(baked);
+            }
+            return result.ToArray();
+        }
+
 
         ~TactsuitVR()
         {
@@ -79,7 +121,7 @@ namespace MyOWOVest
 
         void RegisterAllTactFiles()
         {
-            
+
             string configPath = Directory.GetCurrentDirectory() + "\\Mods\\OWO";
             DirectoryInfo d = new DirectoryInfo(configPath);
             FileInfo[] Files = d.GetFiles("*.owo", SearchOption.AllDirectories);
@@ -94,15 +136,13 @@ namespace MyOWOVest
                 string tactFileStr = File.ReadAllText(fullName);
                 try
                 {
-                    ISensation test = Sensation.FromCode(tactFileStr);
-                    //bHaptics.RegisterFeedback(prefix, tactFileStr);
-                    LOG("Pattern registered: " + prefix);
+                    Sensation test = Sensation.Parse(tactFileStr);
                     FeedbackMap.Add(prefix, test);
                 }
                 catch (Exception e) { LOG(e.ToString()); }
 
             }
-            
+
             systemInitialized = true;
         }
 
