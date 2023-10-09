@@ -14,7 +14,7 @@ using Il2CppSG.Claymore.Entities;
 using Il2CppSG.Claymore.Armory;
 using MyOWOVest;
 
-[assembly: MelonInfo(typeof(UntilYouFall_OWO.UntilYouFall_OWO), "UntilYouFall_OWO", "1.0.2", "Florian Fahrenberger")]
+[assembly: MelonInfo(typeof(UntilYouFall_OWO.UntilYouFall_OWO), "UntilYouFall_OWO", "2.0.0", "Florian Fahrenberger")]
 [assembly: MelonGame("Schell Games", "UntilYouFall")]
 
 namespace UntilYouFall_OWO
