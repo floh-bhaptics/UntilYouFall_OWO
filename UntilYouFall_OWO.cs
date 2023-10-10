@@ -13,8 +13,9 @@ using Il2CppSG.Claymore.Combat.EnemyAttacks;
 using Il2CppSG.Claymore.Entities;
 using Il2CppSG.Claymore.Armory;
 using MyOWOVest;
+using static MelonLoader.MelonLogger;
 
-[assembly: MelonInfo(typeof(UntilYouFall_OWO.UntilYouFall_OWO), "UntilYouFall_OWO", "2.0.0", "Florian Fahrenberger")]
+[assembly: MelonInfo(typeof(UntilYouFall_OWO.UntilYouFall_OWO), "UntilYouFall_OWO", "3.0.0", "Florian Fahrenberger")]
 [assembly: MelonGame("Schell Games", "UntilYouFall")]
 
 namespace UntilYouFall_OWO
@@ -22,7 +23,6 @@ namespace UntilYouFall_OWO
     public class UntilYouFall_OWO : MelonMod
     {
         public static TactsuitVR tactsuitVr = null!;
-        private static String ActiveHand = "PlayerHandRight";
         private static bool BulwarkActive = false;
 
         public override void OnUpdate()
@@ -175,9 +175,9 @@ namespace UntilYouFall_OWO
         public class CrushComplete
         {
             [HarmonyPostfix]
-            public static void Postfix()
+            public static void Postfix(CrushInteractable __instance)
             {
-                if (ActiveHand == "PlayerHandLeft")
+                if (__instance.crushingHand.name == "PlayerHandLeft")
                 {
                     //tactsuitVr.LOG("CrushInteractable.OnCrushStart Left");
                     tactsuitVr.PlayBackFeedback("CrystalCrushed_L");
